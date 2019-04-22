@@ -8,10 +8,11 @@
 
 #import "WKViewController.h"
 #import <WebKit/WebKit.h>
-#import "WKWebView+screenshots.h"
 #import "WXApi.h"
+#import "PPSnapshotHandler.h"
+#import "LSScreensShotsHandler.h"
 
-@interface WKViewController ()<WKNavigationDelegate>
+@interface WKViewController ()<WKNavigationDelegate,PPSnapshotHandlerDelegate>
 @property (nonatomic,strong) WKWebView *wkWebView;
 @end
 
@@ -22,13 +23,14 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareBtn)];
-//    [self createWebView];
+    [self createWebView];
+    PPSnapshotHandler.defaultHandler.delegate = self;
+    _wkWebView.navigationDelegate = self;
 }
 
 - (void)createWebView {
     CGFloat h_y = [self getTop];
     _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, h_y, self.view.frame.size.width, self.view.frame.size.height-h_y)];
-    _wkWebView.navigationDelegate = self;
     [self.view addSubview:_wkWebView];
     NSURL *url = [NSURL URLWithString:@"https://leetcode-cn.com/"];
     [_wkWebView loadRequest:[NSURLRequest requestWithURL:url]];
@@ -37,20 +39,30 @@
 #pragma mark - event
 - (void)shareBtn {
     NSLog(@"分享");
-//    UIImage *image = [_wkWebView screenshots];
+//    [PPSnapshotHandler.defaultHandler snapshotForView:self.wkWebView];
+    [LSScreensShotsHandler.defaultHandler screensShotsForView:self.wkWebView];
     
-    UIImage *image = [UIImage imageNamed:@"res2.png"];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.7);
+}
+#pragma mark - PPSnapshotHandlerDelegate
+
+- (void)snapshotHandler:(PPSnapshotHandler *)snapshotHandler didFinish:(UIImage *)captureImage forView:(UIView *)view
+{
+//    PPSnapshotHandler.defaultHandler.delegate = nil;
     
+    NSLog(@"代理方法被调用");
+    
+    //    UIImage *image = [UIImage imageNamed:@"res2.png"];
+    NSData *imageData = UIImageJPEGRepresentation(captureImage, 0.7);
+
     WXImageObject *imageObject = [WXImageObject object];
     imageObject.imageData = imageData;
-    
+
     WXMediaMessage *message = [WXMediaMessage message];
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res5"
-                                                         ofType:@"jpg"];
-    message.thumbData = [NSData dataWithContentsOfFile:filePath];
+    //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res5"
+    //                                                         ofType:@"jpg"];
+    //    message.thumbData = [NSData dataWithContentsOfFile:filePath];
     message.mediaObject = imageObject;
-    
+
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;
