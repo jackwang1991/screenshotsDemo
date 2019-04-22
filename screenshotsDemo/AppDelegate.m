@@ -8,8 +8,10 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "WXApi.h"
 
-@interface AppDelegate ()
+
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -17,10 +19,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [WXApi registerApp:@"wxaecae305f085027e"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     RootViewController *rootVC = [[RootViewController alloc] init];
-//    rootVC.title = @"test";
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:rootVC];
     self.window.rootViewController = navi;
     self.window.backgroundColor = [UIColor whiteColor];
@@ -55,5 +58,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    
+    return [WXApi handleOpenURL:url delegate:self];
+}
 
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    return [WXApi handleOpenURL:url delegate:self];
+}
 @end

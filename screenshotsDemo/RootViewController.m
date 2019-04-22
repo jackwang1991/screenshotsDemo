@@ -33,7 +33,7 @@
 //    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
 //    NSString *str =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 //    NSLog(@"%@",str);
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, 80, self.view.frame.size.width - 40, 50)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, 100, self.view.frame.size.width - 40, 50)];
     [btn setBackgroundColor:[UIColor blueColor]];
     [btn setTitle:@"WKWebView截图" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
