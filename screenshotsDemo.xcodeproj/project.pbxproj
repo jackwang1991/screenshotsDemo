@@ -27,7 +27,7 @@
 		97931341226DB298007011A8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97931340226DB298007011A8 /* CoreGraphics.framework */; };
 		97931343226DB35A007011A8 /* res5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97931342226DB35A007011A8 /* res5.jpg */; };
 		97931345226DB363007011A8 /* res2.png in Resources */ = {isa = PBXBuildFile; fileRef = 97931344226DB363007011A8 /* res2.png */; };
-		97EC288C226DD01700B82DF8 /* PPSnapshotHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC288A226DD01700B82DF8 /* PPSnapshotHandler.m */; };
+		97EC289E226DEC7C00B82DF8 /* LSScreenshotsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC289D226DEC7C00B82DF8 /* LSScreenshotsHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +80,8 @@
 		97931340226DB298007011A8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		97931342226DB35A007011A8 /* res5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = res5.jpg; sourceTree = "<group>"; };
 		97931344226DB363007011A8 /* res2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = res2.png; sourceTree = "<group>"; };
-		97EC288A226DD01700B82DF8 /* PPSnapshotHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSnapshotHandler.m; sourceTree = "<group>"; };
-		97EC288B226DD01700B82DF8 /* PPSnapshotHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSnapshotHandler.h; sourceTree = "<group>"; };
+		97EC289C226DEC7C00B82DF8 /* LSScreenshotsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSScreenshotsHandler.h; sourceTree = "<group>"; };
+		97EC289D226DEC7C00B82DF8 /* LSScreenshotsHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSScreenshotsHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +155,8 @@
 				97931326226DB1E4007011A8 /* RootViewController.m */,
 				97931321226DB1E3007011A8 /* WKViewController.h */,
 				97931323226DB1E3007011A8 /* WKViewController.m */,
-				97EC288B226DD01700B82DF8 /* PPSnapshotHandler.h */,
-				97EC288A226DD01700B82DF8 /* PPSnapshotHandler.m */,
+				97EC289C226DEC7C00B82DF8 /* LSScreenshotsHandler.h */,
+				97EC289D226DEC7C00B82DF8 /* LSScreenshotsHandler.m */,
 				979312F8226DB185007011A8 /* Assets.xcassets */,
 				979312FA226DB185007011A8 /* LaunchScreen.storyboard */,
 				979312FD226DB185007011A8 /* Info.plist */,
@@ -332,9 +332,9 @@
 			files = (
 				979312FF226DB185007011A8 /* main.m in Sources */,
 				979312F1226DB183007011A8 /* AppDelegate.m in Sources */,
-				97EC288C226DD01700B82DF8 /* PPSnapshotHandler.m in Sources */,
 				97931328226DB1E4007011A8 /* WKViewController.m in Sources */,
 				97931329226DB1E4007011A8 /* RootViewController.m in Sources */,
+				97EC289E226DEC7C00B82DF8 /* LSScreenshotsHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

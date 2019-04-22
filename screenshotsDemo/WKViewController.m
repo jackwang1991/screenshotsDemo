@@ -9,10 +9,9 @@
 #import "WKViewController.h"
 #import <WebKit/WebKit.h>
 #import "WXApi.h"
-#import "PPSnapshotHandler.h"
-#import "LSScreensShotsHandler.h"
+#import "LSScreenshotsHandler.h"
 
-@interface WKViewController ()<WKNavigationDelegate,PPSnapshotHandlerDelegate>
+@interface WKViewController ()<WKNavigationDelegate,LSScreenshotsDelegate>
 @property (nonatomic,strong) WKWebView *wkWebView;
 @end
 
@@ -24,7 +23,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareBtn)];
     [self createWebView];
-    PPSnapshotHandler.defaultHandler.delegate = self;
     _wkWebView.navigationDelegate = self;
 }
 
@@ -39,35 +37,25 @@
 #pragma mark - event
 - (void)shareBtn {
     NSLog(@"分享");
-//    [PPSnapshotHandler.defaultHandler snapshotForView:self.wkWebView];
-    [LSScreensShotsHandler.defaultHandler screensShotsForView:self.wkWebView];
+    LSScreenshotsHandler.defaultHandler.delegate = self;
+    [LSScreenshotsHandler.defaultHandler screensShotsForView:self.wkWebView];
     
 }
-#pragma mark - PPSnapshotHandlerDelegate
 
-- (void)snapshotHandler:(PPSnapshotHandler *)snapshotHandler didFinish:(UIImage *)captureImage forView:(UIView *)view
-{
-//    PPSnapshotHandler.defaultHandler.delegate = nil;
+- (void)screenshotHandler:(LSScreenshotsHandler *)screenshotHandler didFinish:(UIImage *)captureImage forView:(UIView *)view {
+    LSScreenshotsHandler.defaultHandler.delegate = nil;
     
-    NSLog(@"代理方法被调用");
-    
-    //    UIImage *image = [UIImage imageNamed:@"res2.png"];
     NSData *imageData = UIImageJPEGRepresentation(captureImage, 0.7);
-
     WXImageObject *imageObject = [WXImageObject object];
     imageObject.imageData = imageData;
-
     WXMediaMessage *message = [WXMediaMessage message];
-    //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res5"
-    //                                                         ofType:@"jpg"];
-    //    message.thumbData = [NSData dataWithContentsOfFile:filePath];
     message.mediaObject = imageObject;
-
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;
     req.scene = WXSceneSession;
     [WXApi sendReq:req];
+
 }
 
 #pragma mark - UIWebViewDelegate
